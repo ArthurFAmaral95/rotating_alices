@@ -12,3 +12,33 @@ const aliceTiming = {
 const alice1 = document.querySelector("#alice1");
 const alice2 = document.querySelector("#alice2");
 const alice3 = document.querySelector("#alice3");
+
+/*
+alice1.animate(aliceTumbling,aliceTiming).finished
+  .then(() => alice2.animate(aliceTumbling,aliceTiming).finished)
+  .then(() => alice3.animate(aliceTumbling,aliceTiming).finished)
+  .catch(error => console.error(`Error animating Alices: ${error}`));
+  */
+
+  async function rotateAlices(){
+
+    try {
+
+    alice1.animate(aliceTumbling,aliceTiming);
+
+    const finishedAlice1 = await alice1.animate(aliceTumbling,aliceTiming).finished;
+    if(finishedAlice1){
+      alice2.animate(aliceTumbling,aliceTiming);
+    }
+
+    const finishedAlice2 = await alice2.animate(aliceTumbling,aliceTiming).finished;
+    if(finishedAlice2){
+      alice3.animate(aliceTumbling,aliceTiming);
+    }
+    }
+    catch (error){
+      console.error(`Error animating Alices: ${error}`);
+    }
+  };
+
+  rotateAlices();
